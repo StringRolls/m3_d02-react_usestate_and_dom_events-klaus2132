@@ -6,28 +6,57 @@ function App() {
   const [theme, setTheme] = useState("light");
   const [unit, setUnit] = useState("C");
 
-  const toggleTheme = (event) => {
+  const weather = [
+    {
+      city: "Barcelona",
+      icon: "🟡",
+      celsius: 29,
+    },
+    {
+      city: "Miami",
+      icon: "🟡",
+      celsius: 40,
+    },
+    {
+      city: "Oslo",
+      icon: "🟡",
+      celsius: 23,
+    }
+  ]
+  
+
+  const handleSelect = (event) => {
     setTheme(event.target.value);
   };
 
+  const handleSelectTemp = (event) => {
+    setUnit(event.target.value);
+  };
   return (
     <div className={"App " + theme}>
       <h1>React - state and events</h1>
-      <Counter />
+     {/* {/*  <Counter />   */}
 
-      <select onChange={toggleTheme}>
+
+      <select onChange={handleSelect}>
         <option value="light"> Light </option>
         <option value="dark"> Dark </option>
       </select>
 
-      <button onClick={() => setUnit("C")}> °C </button>
-      <button onClick={() => setUnit("F")}> °F </button>
+      <select onChange={handleSelectTemp}>
+        <option value="C"> °C </option>
+        <option value="F"> °F </option>
+      </select>
 
       <div>
-        <WeatherWidget city="Miami" icon="🟡" celsius={29} unit={unit} />
-        <WeatherWidget city="Mexico City" icon="⛈️" celsius={17} unit={unit} />
-        <WeatherWidget city="Berlin" icon="🌥️" celsius={20} unit={unit} />
-        <WeatherWidget city="Barcelona" icon="🌤️" celsius={28} unit={unit} />
+        {weather.map(place => (
+        <WeatherWidget  
+        unit={unit}
+        city={place.city}
+        icon={place.icon}
+        celsius={place.celsius}
+         />))}
+
       </div>
     </div>
   );
